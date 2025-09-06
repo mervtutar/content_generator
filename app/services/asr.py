@@ -13,6 +13,8 @@ def _bin(name: str, env_name: str) -> str:
 FFMPEG = _bin("ffmpeg", "FFMPEG_PATH")
 if not FFMPEG:
     raise RuntimeError("ffmpeg bulunamadı. FFMPEG_PATH ortam değişkenini ayarla veya ffmpeg'i PATH'e ekle.")
+ffmpeg_dir = os.path.dirname(FFMPEG)
+os.environ["PATH"] = ffmpeg_dir + os.pathsep + os.environ.get("PATH", "")
 
 def extract_audio_wav16(video_path: str, wav_path: str):
     os.makedirs(os.path.dirname(wav_path), exist_ok=True)
