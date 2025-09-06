@@ -1,0 +1,38 @@
+# API framework
+fastapi>=0.111
+uvicorn[standard]>=0.30
+
+# Veri ve yardımcılar
+pydantic>=2.7
+python-dotenv
+python-multipart>=0.0.9
+numpy>=1.26
+pillow>=10.3
+jinja2>=3.1
+httpx>=0.27
+gdown
+
+# Video işleme
+ffmpeg-python>=0.2.0
+scenedetect[opencv]>=0.6.3
+
+# Makine öğrenmesi / modeller
+torch>=2.2
+transformers>=4.41
+sentence-transformers>=3.0
+openai-whisper>=20231117
+whisperx # opsiyonel (daha iyi alignment için)
+
+# Görsel anlama
+opencv-python>=4.9
+# BLIP-2 veya LLaVA için
+# git+https://github.com/salesforce/LAVIS.git
+
+# Vektör DB / embedding opsiyonel
+chromadb>=0.5
+
+# Güvenlik / filtre opsiyonel
+onnxruntime>=1.17
+
+# Test
+pytest>=8.2
