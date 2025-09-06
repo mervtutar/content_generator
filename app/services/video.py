@@ -11,6 +11,8 @@ def _bin(name: str, env_name: str) -> str:
 
 FFMPEG  = _bin("ffmpeg",  "FFMPEG_PATH")
 FFPROBE = _bin("ffprobe", "FFPROBE_PATH")
+print("FFMPEG=", FFMPEG)
+print("FFPROBE=", FFPROBE)
 
 if not FFMPEG:
     raise RuntimeError("ffmpeg bulunamadı. FFMPEG_PATH ortam değişkenini ayarla veya ffmpeg'i PATH'e ekle.")
@@ -45,7 +47,7 @@ def fixed_segments(duration: float, seg_len: float = 10.0) -> List[Dict]:
         t = end
     return out
 
-def detect_scenes(video_path: str, threshold: float = 27.0, max_scenes: int = 8):
+def detect_scenes(video_path: str, threshold: float = 27.0, max_scenes: int = 10):
     vm = VideoManager([video_path])
     sm = SceneManager()
     sm.add_detector(ContentDetector(threshold=threshold))
