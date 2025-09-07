@@ -76,7 +76,7 @@ def process_video(job_dir: str, video_path: str):
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(frames_dir, exist_ok=True)
 
-    scenes = detect_scenes(video_path, threshold=27.0, max_scenes=8)
+    scenes = detect_scenes(video_path, threshold=27.0, max_scenes=12)
     for i, s in enumerate(scenes, start=1):
         mid = (s["start"] + s["end"])/2.0 if s["end"] is not None else s["start"] + 5.0
         out_jpg = os.path.join(frames_dir, f"scene_{i:02d}.jpg")
