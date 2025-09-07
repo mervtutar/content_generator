@@ -3,6 +3,8 @@
 This project is a multi-agent system that generates **Instagram-ready content** from gameplay videos and screenshots.  
 It ingests a Google Drive folder, analyzes content and trends, generates captions and hashtags, applies quality control, and serves results through a FastAPI-based UI.
 
+<img width="1920" height="979" alt="image" src="https://github.com/user-attachments/assets/44b7bacf-ea87-45e2-9888-10ef0bfe05ae" />
+
 ---
 
 ## 🚀 Features
