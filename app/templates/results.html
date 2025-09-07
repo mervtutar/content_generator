@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"/>
+  <title>{{ ui_title }} • {{ job_id }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <style>
+    body{font-family:system-ui,Segoe UI,Arial;max-width:1100px;margin:32px auto;padding:0 16px;color:#0f172a}
+    .grid{display:grid;gap:12px}
+    .cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .card{border:1px solid #e5e7eb;border-radius:12px;padding:12px;background:#fff}
+    .frames{display:grid;gap:8px;grid-template-columns:repeat(6,1fr)}
+    img{width:100%;height:auto;border-radius:8px}
+    code,pre{background:#f6f8fa;border-radius:8px;padding:8px;display:block;white-space:pre-wrap}
+    .small{color:#64748b;font-size:13px}
+    h1{margin-top:0}
+    h2{margin:8px 0}
+  </style>
+</head>
+<body>
+  <h1>{{ ui_title }} — Sonuç ({{ job_id }} • {{ game_name or 'Oyun' }})</h1>
+
+  {% if bundle_ok %}
+    <p><a href="/jobs/{{ job_id }}/files/results/bundle.zip"><b>📦 bundle.zip</b></a> — tüm çıktılar tek pakette.</p>
+  {% endif %}
+
+  {% if errs and errs|length > 0 %}
+    <div class="card" style="border-color:#fecaca;background:#fff1f2">
+      <h2>⚠️ Hatalar / Uyarılar</h2>
+      <ul>
+        {% for e in errs %}<li><code>{{ e }}</code></li>{% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+
+  <div class="grid cols2">
+    <div class="card">
+      <h2>✅ Finalization Agent — Seçilen Caption</h2>
+      <pre>{{ summary.get('caption','') }}</pre>
+      <h3>Hashtagler</h3>
+      <code>{{ " ".join(summary.get("hashtags", [])) }}</code>
+      <p class="small">Skor: {{ summary.get("score") }}</p>
+      <p class="small">
+        Dosyalar:
+        <a href="/jobs/{{ job_id }}/files/results/captions.json">captions.json</a> •
+        <a href="/jobs/{{ job_id }}/files/results/scores.json">scores.json</a> •
+        <a href="/jobs/{{ job_id }}/files/results/hashtags.txt">hashtags.txt</a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>🔥 Trend Analysis Agent</h2>
+      <code>{{ trends|join(", ") }}</code>
+
+      {% if vision_caps %}
+        <h2 style="margin-top:16px">🧠 Content Understanding — Görsel Caption/Tags</h2>
+        <div class="small">
+          {% for c in vision_caps[:3] %}
+            <div style="margin-bottom:8px">
+              <div><b>{{ c.caption }}</b></div>
+              <div>tags: {{ (c.tags or [])|join(", ") }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h2>📝 Content Generation Agent — 3 Varyant</h2>
+    <div class="grid cols3">
+      {% for v in captions.get("variants", []) %}
+      <div class="card">
+        <h3>{{ v.id }}</h3>
+        <pre>{{ v.caption }}</pre>
+        <code>{{ " ".join(v.hashtags or []) }}</code>
+        {% if scores.get(v.id) %}
+          <p class="small">
+            Skor: {{ scores[v.id].total }}
+            | TrendFit: {{ scores[v.id].trendfit }}
+            | Media: {{ scores[v.id].media.width }}x{{ scores[v.id].media.height }} • {{ "%.1f"|format(scores[v.id].media.duration) }}s
+          </p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <h2>🎞️ Content Understanding Agent — Frames & Transcript</h2>
+    <div class="frames">
+      {% for src in frames %}
+        <img src="{{ src }}" loading="lazy"/>
+      {% endfor %}
+    </div>
+    <p class="small">
+      Alt yazılar: <a href="/jobs/{{ job_id }}/files/results/subtitles.srt">subtitles.srt</a> •
+      Sahne zamanları: <a href="/jobs/{{ job_id }}/files/results/scenes.json">scenes.json</a>
+    </p>
+  </div>
+</body>
+</html>
