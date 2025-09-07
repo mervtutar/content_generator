@@ -104,7 +104,7 @@ def ui_results(request: Request, job_id: str):
             vision_caps = cu["captions"]
 
     import glob
-    frames = sorted(glob.glob(os.path.join(results_dir, "frames", "*.jpg")))[:8]
+    frames = sorted(glob.glob(os.path.join(results_dir, "frames", "*.jpg")))[:12]
     bundle_ok = os.path.isfile(os.path.join(results_dir, "bundle.zip"))
 
     meta_path = os.path.join(job_dir, "meta.json")
