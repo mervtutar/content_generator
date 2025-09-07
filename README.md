@@ -5,6 +5,16 @@ It ingests a Google Drive folder, analyzes content and trends, generates caption
 
 <img width="1920" height="979" alt="image" src="https://github.com/user-attachments/assets/44b7bacf-ea87-45e2-9888-10ef0bfe05ae" />
 
+
+**Example 1**
+<img width="1396" height="907" alt="image" src="https://github.com/user-attachments/assets/0d840eba-f636-4306-bdb4-b4b48b7417d8" />
+<img width="1101" height="853" alt="image" src="https://github.com/user-attachments/assets/f1021577-a556-4a2b-8546-6c24e95fef07" />
+
+
+**Example 2**
+<img width="1125" height="857" alt="image" src="https://github.com/user-attachments/assets/89588e53-4166-4871-84c3-b3611ea13a9e" />
+<img width="1247" height="356" alt="image" src="https://github.com/user-attachments/assets/1cc3250b-4f2c-4b31-8e4d-624fb9b79387" />
+
 ---
 
 ## 🚀 Features
@@ -64,6 +74,11 @@ app/
 ├── .env                                 # gitignored
 └── requirements.txt                      # dependencies
 ```
+
+## 🧭 Orchestration (LangGraph)
+
+This project uses a lightweight graph-based orchestration approach (LangGraph-style) to describe and run the multi-agent pipeline.  
+The graph maps each agent to a node (ingest → content_understanding → trend_analysis → generation → qc → finalize), supports conditional branches (e.g. QC pass/fail), retries, and timeouts, and keeps job state isolated under `storage/<job_id>/`.
 
 
 ## ⚙️ Installation
