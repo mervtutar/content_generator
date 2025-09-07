@@ -13,6 +13,8 @@ httpx>=0.27
 gdown
 scipy
 pytrends
+jinja2
+python-multipart
 
 # Agent
 langchain
